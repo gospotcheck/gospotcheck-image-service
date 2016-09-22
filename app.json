@@ -17,5 +17,10 @@
     {
       "url": "https://github.com/h2non/heroku-buildpack-imaginary.git"
     }
-  ]
+  ],
+  "env" : {
+    "OPTIONS":{
+      "required": true
+    }
+  }
 }
