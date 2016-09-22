@@ -132,9 +132,9 @@ func main() {
 		checkHttpCacheTtl(*aHttpCacheTtl)
 	}
 
-	debug("imaginary server listening on port %d", port)
+	LoadEnvironmentFile()
 
-	LoadEnvironment()
+	debug("imaginary server listening on port %d", port)
 
 	// Load image source providers
 	LoadSources(opts)

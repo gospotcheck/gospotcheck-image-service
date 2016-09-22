@@ -5,7 +5,7 @@ import (
     "log"
 )
 
-func LoadEnvironment() {
+func LoadEnvironmentFile() {
   err := godotenv.Load()
   if err == nil {
     log.Println("Loaded environment variables from .env file")
