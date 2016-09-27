@@ -72,12 +72,3 @@ func NewServerMux(o ServerOptions) http.Handler {
 
 	return mux
 }
-
-// func monitorApplication() newrelic.Application {
-// 	config := newrelic.NewConfig("gsc-svc-image-proc-dev", "27df0df4ce963c493f2ff0550ca4fffde361e873")
-// 	app, err := newrelic.NewApplication(config)
-// 	if err != nil {
-// 		os.Exit(1)
-// 	}
-// 	return app
-// }
