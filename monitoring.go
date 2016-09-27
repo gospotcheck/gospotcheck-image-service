@@ -46,10 +46,12 @@ func monitorHandle(pattern string, handler http.Handler) (string, http.Handler) 
 	return newrelic.WrapHandle(app, pattern, handler)
 }
 
+// MonitorMiddleware wraps handler funcion fn with monitoring wrapper
 func MonitorMiddleware(pattern string, fn func(http.ResponseWriter, *http.Request), o ServerOptions) (string, http.Handler) {
 	return monitorHandle(pattern, Middleware(fn, o))
 }
 
+// MonitorImageMiddleware wraps image operations with monitoring and middleware
 func MonitorImageMiddleware(o ServerOptions) func(string, Operation) (string, http.Handler) {
 	return func(pattern string, fn Operation) (string, http.Handler) {
 		return monitorHandle(pattern, validateImage(Middleware(imageController(o, Operation(fn)), o), o))
