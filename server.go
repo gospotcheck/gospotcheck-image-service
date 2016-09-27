@@ -52,24 +52,32 @@ func listenAndServe(s *http.Server, o ServerOptions) error {
 
 func NewServerMux(o ServerOptions) http.Handler {
 	mux := http.NewServeMux()
+	mux.Handle(MonitorMiddleware("/", indexController, o))
+	mux.Handle(MonitorMiddleware("/form", formController, o))
+	mux.Handle(MonitorMiddleware("/health", healthController, o))
 
-	mux.Handle("/", Middleware(indexController, o))
-	mux.Handle("/form", Middleware(formController, o))
-	mux.Handle("/health", Middleware(healthController, o))
-
-	image := ImageMiddleware(o)
-	mux.Handle("/resize", image(Resize))
-	mux.Handle("/enlarge", image(Enlarge))
-	mux.Handle("/extract", image(Extract))
-	mux.Handle("/crop", image(Crop))
-	mux.Handle("/rotate", image(Rotate))
-	mux.Handle("/flip", image(Flip))
-	mux.Handle("/flop", image(Flop))
-	mux.Handle("/thumbnail", image(Thumbnail))
-	mux.Handle("/zoom", image(Zoom))
-	mux.Handle("/convert", image(Convert))
-	mux.Handle("/watermark", image(Watermark))
-	mux.Handle("/info", image(Info))
+	image := MonitorImageMiddleware(o)
+	mux.Handle(image("/resize", Resize))
+	mux.Handle(image("/enlarge", Enlarge))
+	mux.Handle(image("/extract", Extract))
+	mux.Handle(image("/crop", Crop))
+	mux.Handle(image("/rotate", Rotate))
+	mux.Handle(image("/flip", Flip))
+	mux.Handle(image("/flop", Flop))
+	mux.Handle(image("/thumbnail", Thumbnail))
+	mux.Handle(image("/zoom", Zoom))
+	mux.Handle(image("/convert", Convert))
+	mux.Handle(image("/watermark", Watermark))
+	mux.Handle(image("/info", Info))
 
 	return mux
 }
+
+// func monitorApplication() newrelic.Application {
+// 	config := newrelic.NewConfig("gsc-svc-image-proc-dev", "27df0df4ce963c493f2ff0550ca4fffde361e873")
+// 	app, err := newrelic.NewApplication(config)
+// 	if err != nil {
+// 		os.Exit(1)
+// 	}
+// 	return app
+// }
