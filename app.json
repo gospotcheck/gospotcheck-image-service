@@ -19,6 +19,10 @@
     }
   ],
   "env" : {
+    "APP_NAME": "gsc-svc-image-proc-review",
+    "NEW_RELIC_LICENSE_KEY": {
+      "required" : true
+    },
     "OPTIONS":{
       "required": true
     }
