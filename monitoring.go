@@ -24,8 +24,8 @@ func monitorApplication() newrelic.Application {
 }
 
 func monitorConfig() newrelic.Config {
-	appName := GetRequiredEnv("APP_NAME")
-	licKey := GetRequiredEnv("NEW_RELIC_LICENSE_KEY")
+	appName := GetRequiredenv("APP_NAME")
+	licKey := GetRequiredenv("NEW_RELIC_LICENSE_KEY")
 
 	config := newrelic.NewConfig(appName, licKey)
 	config.Enabled = configEnabled()
@@ -33,7 +33,7 @@ func monitorConfig() newrelic.Config {
 }
 
 func configEnabled() bool {
-	disabled := strings.ToLower(strings.TrimSpace(GetEnv("MONITORING_DISABLED")))
+	disabled := strings.ToLower(strings.TrimSpace(Getenv("MONITORING_DISABLED")))
 	if disabled == "true" {
 		log.Println("Monitoring disabled for this environment.")
 		return false

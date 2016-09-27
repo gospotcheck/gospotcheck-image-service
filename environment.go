@@ -14,12 +14,12 @@ func LoadEnvironmentFile() {
 	}
 }
 
-func GetEnv(varName string) string {
+func Getenv(varName string) string {
 	return os.Getenv(varName)
 }
 
-func GetRequiredEnv(varName string) string {
-	value := GetEnv(varName)
+func GetRequiredenv(varName string) string {
+	value := Getenv(varName)
 	if value == "" {
 		log.Fatalf("Missing required environment variable: %v", varName)
 	}
